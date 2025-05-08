@@ -1,0 +1,7 @@
+cd LGT
+helm install loki grafana/loki-stack -n monitoring -f loki-values.yaml
+helm install tempo grafana/tempo-distributed -n monitoring -f tempo-values.yml
+helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring -f ./custom_kube_prometheus_stack.yml
+
+cd mimir-helm
+helm install mimir . -n monitoring
