@@ -1,0 +1,45 @@
+minio:
+  auth: 
+    rootUser: minio
+    rootPassword: supersecret
+  command:
+    - minio
+  args:
+    - server
+    - /data
+    - --console-address=:9001
+  ports:
+    - name: api
+      containerPort: 9000
+    - name: console
+      containerPort: 9001
+
+mimir:
+  enabled: true
+  replicas: 3
+  image:
+    repository: grafana/mimir
+    tag: latest
+  service:
+    type: ClusterIP
+    port: 8080
+  extraArgs:
+    - "-config.file=/etc/mimir.yaml"
+  volumeMounts:
+    - name: mimir-config
+      mountPath: /etc/mimir.yaml
+      subPath: mimir.yaml
+    - name: alertmanager-fallback-config
+      mountPath: /etc/alertmanager-fallback-config.yaml
+      subPath: alertmanager-fallback-config.yaml
+    - name: mimir-data
+      mountPath: /data
+  volumes:
+    - name: mimir-config
+      configMap:
+        name: mimir-config
+    - name: alertmanager-fallback-config
+      configMap:
+        name: alertmanager-fallback-config
+    - name: mimir-data
+      emptyDir: {}
