@@ -15,8 +15,3 @@ This repository contains a Helm chart for deploying **Grafana Mimir** in monolit
 - **Helm 3.x**: You will need Helm to deploy the chart.
 - **Kubernetes 1.16+**: Kubernetes cluster to deploy the components.
 - **Kubectl**: CLI for interacting with your Kubernetes cluster.
-
-## Installation
-
-The blog here explains the process of using this helm chart as a demo.
-https://medium.com/@kedarnath93/grafana-mimir-as-a-long-term-storage-for-prometheus-metrics-part-2-2e7561977335
